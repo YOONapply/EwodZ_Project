@@ -1,0 +1,4 @@
+개발 시작 - 24.08.24
+개발 언어 - Python, 프레임워크 - Flask
+사용 사이트 - Firebase, CloudType
+

@@ -1,0 +1,27 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #F25A38;
+}
+
+#mainWindow {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:hover {
+    background-color: deepskyblue; /* 마우스를 올렸을 때 배경색 */
+}
+
+#logoImg {
+    margin-bottom: 50%;
+}
+
+img {
+    margin-top: 25%;
+    max-width: 100%;
+    height: auto;
+}
