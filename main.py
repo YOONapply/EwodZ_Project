@@ -5,7 +5,8 @@
 # ======= Import ========================
 import firebase_admin
 from firebase_admin import credentials, storage
-
+import subprocess
+import sys
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -13,6 +14,12 @@ from fastapi.staticfiles import StaticFiles
 
 import json
 # =======================================
+
+# pip 자체 업그레이드
+subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
+
+# requirements.txt의 패키지 설치
+subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "-r", "requirements.txt"])
 
 
 # ------- FireBase Connect --------------
@@ -63,7 +70,6 @@ def Upload_To_Firebase(filePath):
 # =======================================
 
 # ======== Main =========================
-print("Test to Git actions")
 userDataFile = "userData.json"
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
