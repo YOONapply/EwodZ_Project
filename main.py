@@ -63,6 +63,7 @@ def Upload_To_Firebase(filePath):
 # =======================================
 
 # ======== Main =========================
+print("Test to Git actions")
 userDataFile = "userData.json"
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
