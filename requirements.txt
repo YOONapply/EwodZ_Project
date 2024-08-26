@@ -1,1 +1,3 @@
 uvicorn
+jinja2
+firebase-admin
