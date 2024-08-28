@@ -11,9 +11,11 @@ from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-
+import os
 import json
 # =======================================
+
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "firebase/ewordz-ea3e2-firebase-adminsdk-fqu91-07418cc09c.json"
 
 # pip 자체 업그레이드
 subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
