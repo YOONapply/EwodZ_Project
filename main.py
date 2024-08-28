@@ -25,7 +25,7 @@ subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "-r"
 # ------- FireBase Connect --------------
 cred = credentials.Certificate('firebase/ewordz-ea3e2-firebase-adminsdk-fqu91-07418cc09c.json')
 firebase_admin.initialize_app(cred, {
-    'storageBucket': 'ewordz-ea3e2.appspot.com'
+    'storageBucket': 'ewordz-project.appspot.com'
 })
 
 bucket = storage.bucket()
