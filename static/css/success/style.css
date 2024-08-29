@@ -8,9 +8,14 @@
 
 img{
     width: 300px;
-    height: 400px;
+    height: 300px;
 }
 .infoBox{
+    padding: 10px 100px;
     background-color: antiquewhite;
     text-align: center;
+}
+
+.btn{
+    margin-top: 50px;
 }

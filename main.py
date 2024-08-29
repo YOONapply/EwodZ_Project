@@ -13,6 +13,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import os
 import json
+from datetime import date
 # =======================================
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "firebase/ewordz-ea3e2-firebase-adminsdk-fqu91-07418cc09c.json"
@@ -116,8 +117,9 @@ async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...)
             Dump_Json(userDataFile, userData)
             Upload_To_Firebase(userDataFile)
             Download_Of_Firebase(userDataFile)
+            time = date.today()
             print(f"\n[ Server Message ]\n유저 한 명이 회원가입을 성공하였습니다.\n아이디 - {id}\n[ END ]\n")
-            return templates.TemplateResponse("signupSuccess.html", {"request": request, "id" : id})
+            return templates.TemplateResponse("signupSuccess.html", {"request": request, "id" : id, "time" : time})
         else:
             print(f"\n[ Server Message ]\n유저 한 명이 회원가입을 실패하였습니다.\n사유 - 비밀번호가 일치하지 않습니다.\n[ END ]\n")
             return templates.TemplateResponse("signup.html", {"request": request, "warring": "비밀번호가 일치하지 않습니다."})
