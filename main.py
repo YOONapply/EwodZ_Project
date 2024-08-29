@@ -103,8 +103,8 @@ async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...)
         print("존재하지 않는 아이디 또는 비밀번호 틀림")
         return templates.TemplateResponse("login.html", {"request": request, "warring": "잘못된 비밀번호 또는 존재하지 않는 아이디입니다."})
 
-@app.post("/signup_submit")
-async def submit_form(id: str = Form(...), pw: str = Form(...), pw2: str = Form(...)):   
+@app.post("/signup_submit", response_class=HTMLResponse)
+async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...), pw2: str = Form(...)):   
     userData = Load_Json(userDataFile)
     if id not in userData:
         if pw == pw2:
@@ -112,10 +112,13 @@ async def submit_form(id: str = Form(...), pw: str = Form(...), pw2: str = Form(
             Dump_Json(userDataFile, userData)
             Upload_To_Firebase(userDataFile)
             Download_Of_Firebase(userDataFile)
-            print("회원가입 성공")
+            print(f"\n[ Server Message ]\n유저 한 명이 회원가입을 성공하였습니다.\n아이디 - {id}\n[ END ]\n")
         else:
-            print("비밀번호 틀림")
+            print(f"\n[ Server Message ]\n유저 한 명이 회원가입을 실패하였습니다.\n사유 - 비밀번호가 일치하지 않습니다.\n[ END ]\n")
+            return templates.TemplateResponse("signup.html", {"request": request, "warring": "비밀번호가 일치하지 않습니다."})
+            
     else:
-        print("이미 존재하는 ID")
-    return {f"id = {id}, pw = {pw}"}
+        print(f"\n[ Server Message ]\n유저 한 명이 회원가입을 실패하였습니다.\n사유 - 이미 존재하는 아이디입니다. ({id})\n[ END ]\n")
+        return templates.TemplateResponse("signup.html", {"request": request, "warring": "이미 존재하는 아이디입니다."})
+    
 # =======================================
