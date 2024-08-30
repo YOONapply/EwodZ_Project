@@ -11,6 +11,7 @@ from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+import hashlib
 import os
 import json
 from datetime import date
@@ -69,7 +70,10 @@ def Upload_To_Firebase(filePath):
     blob = bucket.blob(f'{filePath}')
     blob.upload_from_filename(filePath)
 
-
+def hashing(data):
+    hashedData = hashlib.sha256()
+    hashedData.update(f"{data}".encode("utf-8"))
+    return hashedData.hexdigest()
 # =======================================
 
 # ======== Main =========================
@@ -94,7 +98,7 @@ async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...)
     userData = Load_Json(userDataFile)
     # 아이디가 존재하지 않는 경우 처리 추가
     try:
-        if userData[f"{id}"]["pw"] == pw:
+        if userData[f"{id}"]["pw"] == hashing(pw):
             print("로그인 성공")
             return templates.TemplateResponse("main.html", {"request": request, "userId": f"{id}", "userPw" : f"{pw}"})
         else:
@@ -110,6 +114,8 @@ async def aaa(request: Request):
 
 @app.post("/signup_submit", response_class=HTMLResponse)
 async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...), pw2: str = Form(...)):   
+    pw = hashing(pw)
+    pw2 = hashing(pw2)
     userData = Load_Json(userDataFile)
     if id not in userData:
         if pw == pw2:
