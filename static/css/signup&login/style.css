@@ -1,3 +1,9 @@
+* {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -55,16 +61,13 @@ body {
 }
 
 .input_field button {
+  margin-top: 20px;
+  margin-bottom: 10px;
   width: 100%;
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #28a745;
   color: white;
   font-size: 16px;
   cursor: pointer;
-}
-
-.input_field button:hover {
-  background-color: #218838;
 }
