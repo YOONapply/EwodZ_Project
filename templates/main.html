@@ -1,13 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EwordZ</title>
+    <title>단어 학습</title>
+    <link rel="stylesheet" href="../static/css/main/style.css">
 </head>
 <body>
-    <h1>로그인 성공</h1><br>
-    <h1>ID = {{ userId }} </h1>
-    <h1>PW = {{ userPw }} </h1>
+    <div class="container">
+        <div class="header">
+            <div class="progress-circle">
+                <span>0/10</span>
+            </div>
+            <div class="title-section">
+                <img src="../static/imgs/flower.png" alt="face" class="face-image">
+                <div class="title-text">
+                    <h2>단어 학습</h2>
+                    <p>하루 목표: 10(기본값) <span class="dropdown">&#9660;</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="today-study">
+            <span>&#9733; 오늘의 학습</span>
+        </div>
+        <div class="statistics">
+            <div class="stat-item">
+                <p>오답률</p>
+                <p>예) 2024-08-20 측정결과</p>
+            </div>
+            <div class="stat-item">
+                <img src="chart-icon.png" alt="chart icon" class="chart-icon">
+            </div>
+        </div>
+        <div class="attendance">
+            <p>출석 체크</p>
+            <div class="days">
+                <span>월</span>
+                <span>화</span>
+                <span>수</span>
+                <span class="checked">✔</span>
+                <span>금</span>
+                <span>토</span>
+                <span>일</span>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-item">
+                <img src="shop-icon.png" alt="shop icon">
+                <p>상점</p>
+            </div>
+            <div class="footer-item">
+                <img src="collection-icon.png" alt="collection icon">
+                <p>컬렉션</p>
+            </div>
+            <div class="footer-item">
+                <img src="dictionary-icon.png" alt="dictionary icon">
+                <p>영어 사전</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
