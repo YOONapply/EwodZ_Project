@@ -103,10 +103,10 @@ async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...)
             return templates.TemplateResponse("main.html", {"request": request, "userId": f"{id}", "userPw" : f"{pw}"})
         else:
             print("존재하지 않는 아이디 또는 비밀번호 틀림")
-            return templates.TemplateResponse("login.html", {"request": request, "warring": "잘못된 비밀번호 또는 존재하지 않는 아이디입니다."})
+            return templates.TemplateResponse("login.html", {"request": request, "warning": "잘못된 비밀번호 또는 존재하지 않는 아이디입니다."})
     except:
         print("존재하지 않는 아이디 또는 비밀번호 틀림")
-        return templates.TemplateResponse("login.html", {"request": request, "warring": "잘못된 비밀번호 또는 존재하지 않는 아이디입니다."})
+        return templates.TemplateResponse("login.html", {"request": request, "warning": "잘못된 비밀번호 또는 존재하지 않는 아이디입니다."})
 
 @app.get("/aaa", response_class=HTMLResponse)
 async def aaa(request: Request):
@@ -128,10 +128,13 @@ async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...)
             return templates.TemplateResponse("signupSuccess.html", {"request": request, "id" : id, "time" : time})
         else:
             print(f"\n[ Server Message ]\n유저 한 명이 회원가입을 실패하였습니다.\n사유 - 비밀번호가 일치하지 않습니다.\n[ END ]\n")
-            return templates.TemplateResponse("signup.html", {"request": request, "warring": "비밀번호가 일치하지 않습니다."})
+            return templates.TemplateResponse("signup.html", {"request": request, "warning": "비밀번호가 일치하지 않습니다."})
             
     else:
         print(f"\n[ Server Message ]\n유저 한 명이 회원가입을 실패하였습니다.\n사유 - 이미 존재하는 아이디입니다. ({id})\n[ END ]\n")
-        return templates.TemplateResponse("signup.html", {"request": request, "warring": "이미 존재하는 아이디입니다."})
-    
+        return templates.TemplateResponse("signup.html", {"request": request, "warning": "이미 존재하는 아이디입니다."})
+
+@app.get("/to_day_study", response_class=HTMLResponse)
+async def aaa(request: Request):
+    return templates.TemplateResponse("game.html", {"request": request})
 # =======================================

@@ -13,16 +13,12 @@
 </head>
 <body>
     <div id="mainWindow">
-        <img src="/static/imgs/EwordZ.jpg" alt="#" id="logoImg">
-        <button id="startBtn" class="main_btn">시작하기</button>
-        <button id="login_joinBtn" class="main_btn">로그인<br>회원가입</button>
+        <img src="../static/imgs/EwordZ.jpg" alt="#" id="logoImg">
+        <!-- <button id="startBtn" class="btn-10">시작하기</button> -->
+        <button class="btn" id="startBtn"><span>GAME START!</span></button>
     </div>
     <script>
         document.getElementById('startBtn').onclick = function() {
-            window.location.href = 'start.html';
-        };
-
-        document.getElementById('login_joinBtn').onclick = function() {
             window.location.href = '/login';
         };
     </script>

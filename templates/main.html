@@ -3,61 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>단어 학습</title>
+    <title>Layout Example</title>
     <link rel="stylesheet" href="../static/css/main/style.css">
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="progress-circle">
-                <span>0/10</span>
+        <!-- Profile Section -->
+        <div class="profile">
+            <div class="avatar">
+                <img src="avatar.png" alt="Avatar" />
+                <span class="progress">0/10</span>
             </div>
-            <div class="title-section">
-                <img src="../static/imgs/flower.png" alt="face" class="face-image">
-                <div class="title-text">
-                    <h2>단어 학습</h2>
-                    <p>하루 목표: 10(기본값) <span class="dropdown">&#9660;</span></p>
-                </div>
-            </div>
+            <div class="nickname">닉네임</div>
         </div>
-        <div class="today-study">
-            <span>&#9733; 오늘의 학습</span>
+
+        <!-- Info Section -->
+        <div class="info">
+            <h2>내 정보</h2>
+            <p>현재 정답률: 0%</p>
+            <p>최고 정답률: 0%</p>
+            <p class="reset">매주 월요일 초기화</p>
         </div>
-        <div class="statistics">
-            <div class="stat-item">
-                <p>오답률</p>
-                <p>예) 2024-08-20 측정결과</p>
+
+        <!-- Daily Goals Section -->
+        <div class="goals">
+            <h2>하루목표</h2>
+            <div class="goal-buttons">
+                <button>10개</button>
+                <button class="active">20개</button>
+                <button>30개</button>
+                <button>40개</button>
+                <button>50개</button>
             </div>
-            <div class="stat-item">
-                <img src="chart-icon.png" alt="chart icon" class="chart-icon">
-            </div>
+            <p>현재 목표: 20개</p>
         </div>
+
+        <!-- Attendance Section -->
         <div class="attendance">
-            <p>출석 체크</p>
+            <h2>출석체크</h2>
             <div class="days">
-                <span>월</span>
                 <span>화</span>
                 <span>수</span>
-                <span class="checked">✔</span>
+                <span>목</span>
                 <span>금</span>
                 <span>토</span>
                 <span>일</span>
             </div>
+            <p>13일 연속 출석중</p>
         </div>
-        <div class="footer">
-            <div class="footer-item">
-                <img src="shop-icon.png" alt="shop icon">
-                <p>상점</p>
-            </div>
-            <div class="footer-item">
-                <img src="collection-icon.png" alt="collection icon">
-                <p>컬렉션</p>
-            </div>
-            <div class="footer-item">
-                <img src="dictionary-icon.png" alt="dictionary icon">
-                <p>영어 사전</p>
-            </div>
+
+        <!-- Menu Section -->
+        <div class="menu">
+            <ul>
+                <li id="toDayStudy">⭐ 오늘의 학습</li>
+                <li>🛒 상점</li>
+                <li>📑 컬렉션</li>
+            </ul>
         </div>
     </div>
+    <script>
+        document.getElementById('toDayStudy').onclick = function() {
+            window.location.href = '/to_day_study';
+        };
+    </script>
+</body>
 </body>
 </html>

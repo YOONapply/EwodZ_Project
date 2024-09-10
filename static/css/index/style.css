@@ -12,16 +12,14 @@ html, body {
     align-items: center;
 }
 
-.btn:hover {
+.main_btn:hover {
     background-color: deepskyblue; /* 마우스를 올렸을 때 배경색 */
 }
 
 #logoImg {
-    margin-bottom: 50%;
-}
-
-img {
-    margin-top: 25%;
+    margin-top: 30px;
+    width: 1000px;
     max-width: 100%;
     height: auto;
+    /* margin-bottom: 50% */
 }

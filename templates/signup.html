@@ -13,9 +13,10 @@
 </head>
 <body>
   <div class="container">
-    <h1 class="fadeIn">Signup Page</h1>
+    <h1 class="fadeIn">Signup</h1>
   </div>
   <form class="input_field" action="/signup_submit" method="post">
+    <p class="warning">{{ warning }}</p>
     <label for="id">ID</label>
     <input type="text" name="id" id="id" placeholder="Please enter here" required>
     <label for="id">User Name</label>
