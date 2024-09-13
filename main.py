@@ -100,7 +100,7 @@ async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...)
     try:
         if userData[f"{id}"]["pw"] == hashing(pw):
             print("로그인 성공")
-            return templates.TemplateResponse("main.html", {"request": request, "userId": f"{id}", "userPw" : f"{pw}"})
+            return templates.TemplateResponse("/main", {"request": request, "id" : id})
         else:
             print("존재하지 않는 아이디 또는 비밀번호 틀림")
             return templates.TemplateResponse("login.html", {"request": request, "warning": "잘못된 비밀번호 또는 존재하지 않는 아이디입니다."})
@@ -137,4 +137,8 @@ async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...)
 @app.get("/to_day_study", response_class=HTMLResponse)
 async def aaa(request: Request):
     return templates.TemplateResponse("game.html", {"request": request})
+
+@app.get("/main", response_class=HTMLResponse)
+async def read_signup(request: Request):
+    return templates.TemplateResponse("signup.html", {"request": request})
 # =======================================
