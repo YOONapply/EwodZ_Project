@@ -5,20 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EwordZ</title>
-    <link rel="stylesheet" href="../static/css/index/style.css">
-    <link rel="stylesheet" href="../static/css/index/button.css">
+    <link rel="stylesheet" href="/static/css/index/style.css">
+    <link rel="stylesheet" href="/static/css/index/button.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Jua&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="mainWindow">
-        <img src="../static/imgs/EwordZ.jpg" alt="#" id="logoImg">
-        <!-- <button id="startBtn" class="btn-10">시작하기</button> -->
-        <button class="btn" id="startBtn"><span>GAME START!</span></button>
+        <img src="/static/imgs/EwordZ.jpg" alt="#" id="logoImg">
+        <button id="startBtn" class="main_btn">시작하기</button>
+        <button id="login_joinBtn" class="main_btn">로그인<br>회원가입</button>
     </div>
     <script>
         document.getElementById('startBtn').onclick = function() {
+            window.location.href = 'start.html';
+        };
+
+        document.getElementById('login_joinBtn').onclick = function() {
             window.location.href = '/login';
         };
     </script>

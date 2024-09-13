@@ -1,0 +1,73 @@
+* {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-image: url('../../imgs/login_background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.fadeIn {
+  opacity: 0;
+  animation: fadeIn 4s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.container {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.input_field {
+  opacity: 0; /* 처음에는 투명하게 설정 */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  animation: fadeIn 2s ease-in forwards;
+  animation-delay: 2s; /* 배경 이미지 애니메이션이 끝난 후 실행 */
+}
+
+.input_field label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.input_field input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input_field button {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}

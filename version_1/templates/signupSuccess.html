@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/success/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Signup Success</title>
+</head>
+<body class="success">
+    <img src="/static/imgs/flower.png">
+    <div class="success">
+        <h1>회원가입 성공 :)</h1>
+        <p><b>EwordZ</b>에 오신걸 진심으로 환영해요!<br>
+            다음은 회원님이 가입한 정보에요.<br>
+        </p>
+        <div class="infoBox">
+            유저 아이디 - {{ id }}<br>
+            가입한 날짜 -  {{ time }}     
+        </div>
+        <a class="btn btn-success" href="/login">로그인하러 가기</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning Interface</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #EEb3a3;
+            margin: 0;
+            transform: scale(1.5); /* 전체 150% 확대 */
+            transform-origin: center; /* 가운데 기준으로 확대 */
+        }
+        .container {
+            background-color: #F3553C;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+        }
+        .header {
+            font-size: 14px;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .question {
+            background-color: #F2CDC4;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            border-radius: 10px;
+            color: #444;
+            font-weight: 500;
+        }
+        .answer-box {
+            background-color: #FFB53C;
+            color: rgb(0, 0, 0);
+            padding: 20px;
+            margin-bottom: 25px;
+            font-size: 18px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .answer-box input {
+            font-size: 16px;
+            padding: 8px 12px;
+            width: 60%;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+        }
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+        }
+        .button-row button {
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .pa {
+            background-color: #642A02;
+            color: white;
+        }
+        .impa {
+            background-color: #642A02;
+            color: white;
+        }
+        .pa:hover {
+            background-color: #F24822;
+        }
+        .impa:hover {
+            background-color: #D1441A;
+        }
+        /* 아이콘 버튼 스타일 */
+        .icon-button {
+            background-color: transparent; /* 아이콘 버튼 배경을 투명으로 설정 */
+            color: #642A02; /* 아이콘 버튼 텍스트 색상 설정 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+        .icon-button img {
+            width: 50px;
+            height: 50px;
+            vertical-align: middle;
+        }
+        .icon-button span {
+            font-size: 12px;
+            margin-top: 5px;
+            color: black;
+        }
+        .confirm-button {
+            background-color: #642A02;
+            color: white;
+            width: 200px; /* 버튼 가로 크기 조정 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        .confirm-button:hover {
+            background-color: #F24822;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">1/10</div>
+        <div class="question">나는 사과를 먹고 있습니다.</div>
+        <div class="answer-box">
+            I'm eating an <input type="text" placeholder="Answer here" />
+        </div>
+        <div class="button-row">
+            <button class="pa icon-button">
+                <img src="hint-icon.png" alt="힌트 아이콘">
+                <span>Hint</span>
+            </button>
+            <button class="confirm-button">
+                <span>Check</span>
+            </button>
+            <button class="impa icon-button">
+                <img src="info-icon.png" alt="단어 정보 아이콘">
+                <span>Word Info</span>
+            </button>
+        </div>
+    </div>
+
+</body>
+</html>

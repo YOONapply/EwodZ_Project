@@ -9,58 +9,64 @@
 <body>
     <div class="container">
         <!-- Profile Section -->
-        <div class="profile">
-            <div class="avatar">
-                <img src="avatar.png" alt="Avatar" />
-                <span class="progress">0/10</span>
+        <header>
+            <div class="profile">
+                <div class="avatar">
+                    <img src="../static/imgs/character_1.png" alt="Avatar" />
+                    <span class="progress">0/10</span>
+                </div>
+                <p class="nick">닉네임</p>
             </div>
-            <div class="nickname">닉네임</div>
-        </div>
 
-        <!-- Info Section -->
-        <div class="info">
-            <h2>내 정보</h2>
-            <p>현재 정답률: 0%</p>
-            <p>최고 정답률: 0%</p>
-            <p class="reset">매주 월요일 초기화</p>
-        </div>
+            <div class="info">
+                <h2>내 정보</h2>
+                <section>
+                    <h3>현재 정답률: 0%</h3>
+                    <h3>최고 정답률: 0%</h3>
+                <section>
 
-        <!-- Daily Goals Section -->
-        <div class="goals">
-            <h2>하루목표</h2>
-            <div class="goal-buttons">
-                <button>10개</button>
-                <button class="active">20개</button>
-                <button>30개</button>
-                <button>40개</button>
-                <button>50개</button>
+                <p class="reset">매주 월요일 초기화</p>
             </div>
-            <p>현재 목표: 20개</p>
-        </div>
 
-        <!-- Attendance Section -->
-        <div class="attendance">
-            <h2>출석체크</h2>
-            <div class="days">
-                <span>화</span>
-                <span>수</span>
-                <span>목</span>
-                <span>금</span>
-                <span>토</span>
-                <span>일</span>
+            <div class="goals">
+                <h2>하루목표</h2>
+                <div class="goal-buttons-top">
+                    <button>10개</button>
+                    <button class="active">20개</button>
+                    <button>30개</button>
+                </div>
+                <div class="goal-buttons-bottom">
+                    <button>40개</button>
+                    <button>자유롭게</button>
+                </div>
+                <p class="now-goal">현재 목표: 20개</p>
             </div>
-            <p>13일 연속 출석중</p>
-        </div>
+        </header>
 
-        <!-- Menu Section -->
-        <div class="menu">
-            <ul>
-                <li id="toDayStudy">⭐ 오늘의 학습</li>
-                <li>🛒 상점</li>
-                <li>📑 컬렉션</li>
-            </ul>
+        <footer>
+            <div class="menu">
+                <ul>
+                    <li id="toDayStudy">⭐ 오늘의 학습</li>
+                    <li>🛒 상점</li>
+                    <li>📑 컬렉션</li>
+                </ul>
+            </div>
+
+            <div class="attendance">
+                <h2>출석체크</h2>
+                <div class="days">
+                    <span>월</span>
+                    <span>화</span>
+                    <span>수</span>
+                    <span>목</span>
+                    <span>금</span>
+                    <span>토</span>
+                    <span>일</span>
+                </div>
+                <p class="continuous">13일 연속 출석중</p>
+            </div>
         </div>
-    </div>
+    </footer>
     <script>
         document.getElementById('toDayStudy').onclick = function() {
             window.location.href = '/to_day_study';
