@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: beige;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrap {
+    padding: 10px;
+    width: 800px;
+    height: 90vh;
+    overflow-y: auto;
+    background-color: white;
+    border: solid 2px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.color-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.color-sample {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+}
+
+.color-info {
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.star-icon {
+    font-size: 24px;
+    margin-left: 15px;
+}
+
+/* 봄 배경 정보 박스 스타일 */
+.spring-background-showbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.spring-background-content {
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* wrap의 overflow 숨기기 */
+.wrap.overflow-hidden {
+    overflow: hidden;
+}
