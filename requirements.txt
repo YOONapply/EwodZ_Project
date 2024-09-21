@@ -3,3 +3,4 @@ python-multipart
 fastapi
 jinja2
 firebase-admin
+itsdangerous

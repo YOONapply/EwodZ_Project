@@ -11,7 +11,57 @@ body{
     align-items: center;
 }
 .wrap{
-    background: red;
+    /* background: beige; */
     width: 1000px;
     height: 80vh;
+    border: solid;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header{
+    height: 40%;
+    width: 100%;
+    border-bottom: solid 2px;
+}
+
+footer{
+    background-color: rgb(216, 202, 184);
+    height: 60%;
+    width: 100%;
+    border-bottom: solid;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    /* border-top: solid ;
+    border-bottom: solid ; */
+}
+
+footer .top{
+    display: flex;
+    align-items: center;
+    background-color: rgb(228, 166, 90);
+    height: 20%;
+    width: 100%;
+}
+
+footer .top .checkbox{
+    display: flex;
+    margin: 0 auto;
+    flex-direction: row;
+    gap: 100px
+}
+
+footer .top .checkbox button{
+    border: solid 1px;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+}
+
+footer .bottom{
+    border-radius: 20px;
+    background-color: rgb(216, 202, 184);
+    height: 80%;
+    width: 100%;
 }
