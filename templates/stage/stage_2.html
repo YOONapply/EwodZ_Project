@@ -54,7 +54,7 @@
         .answer-box input {
             font-size: 16px;
             padding: 8px 12px;
-            width: 40%; /* 너비를 100%로 설정 */
+            width: 60%;
             border: none;
             border-radius: 8px;
             outline: none;
@@ -66,14 +66,11 @@
         .button-row button {
             border: none;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 16px; 
             border-radius: 8px;
             transition: background-color 0.3s;
-            padding: 10px 20px; /* 가로 방향 패딩 추가 */
-            color: white;
-        }
-        .check{
-            font-size: 30px;
+            padding: 10px;
+            color: white;  
         }
         .pa {
             background-color: #642A02;
@@ -109,30 +106,24 @@
             justify-content: center;
             padding: 10px;
         }
-        @media (max-width: 600px) {
-            .container {
-                width: 90%; /* 화면 크기에 따라 너비 조정 */
-                padding: 20px; /* 패딩 조정 */
-            }
-        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="question">나는 많은 노력을 기울여서 성취했다.</div>
+        <div class="question">나는 사과를 먹고 있습니다.</div>
         <div class="answer-box">
-            I put in a lot of effort to <input id="input" type="text" placeholder="Answer here" />
+            I'm eating an <input id="input" type="text" placeholder="Answer here" />
         </div>
         <div class="button-row">
-            <button id="hint"  class="pa icon-button">
+            <button class="pa icon-button">
                 <img src="../static/imgs/hint-icon.png" alt="힌트 아이콘">
                 <span>Hint</span>
             </button>
             <button id="check" class="confirm-button">
-                <span class="check">Check</span>
+                <span>Check</span>
             </button>
-            <button id="info"  class="impa icon-button">
+            <button class="impa icon-button">
                 <img src="../static/imgs/info-icon.png" alt="단어 정보 아이콘">
                 <span>Word Info</span>
             </button>
@@ -141,58 +132,27 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // const awnser = "achieve"; // 정답 자리
-            const awnser = "ae"; // 정답 자리
-            const awnser_len = awnser.length;
-            const checkBtn = document.getElementById("check");
-            const infoBtn = document.getElementById("info");
-            const hintBtn = document.getElementById("hint");
-            const input = document.getElementById("input");
-
             let isNext = 0;
+            var checkButton = document.getElementById("check");
 
-            let hintCnt = 0;
-            let wrongCnt = 0;
-
-            checkBtn.addEventListener('click', () => {
+            checkButton.addEventListener('click', () => {
                 var inputElement = document.getElementById("input");
-                var inputValue = inputElement.value.trim(); 
+                var inputValue = inputElement.value.trim(); // 공백 제거
                 
-                if(isNext === 1){
-                    window.location.href = '/next';
+                // 정답 체크
+                if(isNext == 1){
+                    checkButton.addEventListener('click', () => {
+                        // 다음 페이지로
+                       alert("다음으로");
+                    });
                 }
-                else if(inputValue === awnser) {  // 정답 자리
+                else if (inputValue == 'apple' && isNext == 0) { 
                     alert("정답입니다.");
-                    alert("힌트 사용: "+hintCnt+"회\n오답: "+wrongCnt+"회");
-                    checkBtn.querySelector('span').textContent = "Next";
+                    checkButton.querySelector('span').textContent = "다음으로";
                     isNext = 1;
-                } else {
-                    wrongCnt += 1;
-                    alert("정답이 아닙니다.\n오답: "+wrongCnt+"회");
                 }
-            });
-
-            hintBtn.addEventListener('click', () => {    
-                if(hintCnt === awnser_len){
-                    alert("정답이 이미 공개되었습니다.\n정답: "+awnser);
-                } else{
-                    let awnser_hint = "";
-                    for(let i=0; i<=hintCnt; i++){
-                        awnser_hint += awnser[i];
-                    }
-                    input.value = awnser_hint;
-                    hintCnt += 1;
-                    // alert("힌트를 사용하였습니다.\n사용 횟수: "+hintCnt+"회\n"+"정답: "+awnser_hint);
-                    alert("힌트를 사용하였습니다.\n사용 횟수: "+hintCnt+"회\n");
-                }
-                
-            });
-
-            infoBtn.addEventListener('click', () => {            
-                if (isNext === 1) {
-                    alert("단어 정보 표시");
-                } else {
-                    alert("정답을 맞춘 후 단어의 정보를 확인할 수 있습니다.");
+                else {
+                    alert("정답이 아닙니다.");
                 }
             });
         });

@@ -53,12 +53,12 @@ header{
 .avatar {
     position: relative;
     margin-right: 20px;
+    
 }
 
 .avatar img {
     width: 300px;
     height: 300px;
-
 }
 
 .progress {
@@ -133,46 +133,17 @@ h3 {
     /* margin-bottom: 20px; */
 }
 
+.goals h3{
+    margin-top: 30px;
+}
+
 .goals button{
-    width: 100px;
-    height: 50px;   
-    padding: 10px 20px;
-    border: none;
-    background-color: #e0e0e0;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* 부드러운 배경색 변화 효과 */
-}
-
-.goals button.active{
-    background-color: #4caf50;
-    color: white;
-}
-
-.goals button:hover {
-    background-color: #d0d0d0;
-}
-
-.goal-buttons-bottom > :last-child {
+    margin-top: 20px;
+    border: solid 1px;
+    border-radius: 10px;
+    height: 60px;
     width: 150px;
-}
-
-.goal-buttons-top {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px; 
-    margin-bottom: 10px; 
-    justify-content: center; 
-}
-
-.goal-buttons-bottom {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px; 
-    margin-bottom: 40px; 
-    justify-content: center; 
+    font-size: 20px;
 }
 
 .attendance {

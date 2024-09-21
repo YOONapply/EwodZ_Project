@@ -66,23 +66,17 @@
         .button-row button {
             border: none;
             cursor: pointer;
-            font-size: 30px;
+            font-size: 16px; /* 버튼 텍스트 크기 조정 */
             border-radius: 8px;
             transition: background-color 0.3s;
+            padding: 10px;
+            color: white; /* 버튼 텍스트 색상 설정 */
         }
         .pa {
             background-color: #642A02;
-            color: white;
         }
         .impa {
             background-color: #642A02;
-            color: white;
-        }
-        .pa:hover {
-            background-color: #F24822;
-        }
-        .impa:hover {
-            background-color: #D1441A;
         }
         /* 아이콘 버튼 스타일 */
         .icon-button {
@@ -113,9 +107,6 @@
             justify-content: center;
             padding: 10px;
         }
-        .confirm-button:hover {
-            background-color: #F24822;
-        }
     </style>
 </head>
 <body>
@@ -124,14 +115,14 @@
         <div class="header">1/10</div>
         <div class="question">나는 사과를 먹고 있습니다.</div>
         <div class="answer-box">
-            I'm eating an <input type="text" placeholder="Answer here" />
+            I'm eating an <input id="input" type="text" placeholder="Answer here" />
         </div>
         <div class="button-row">
             <button class="pa icon-button">
                 <img src="../static/imgs/hint-icon.png" alt="힌트 아이콘">
                 <span>Hint</span>
             </button>
-            <button class="confirm-button">
+            <button id="check" class="confirm-button">
                 <span>Check</span>
             </button>
             <button class="impa icon-button">
@@ -141,5 +132,32 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let isNext = 0;
+            var checkButton = document.getElementById("check");
+
+            checkButton.addEventListener('click', () => {
+                var inputElement = document.getElementById("input");
+                var inputValue = inputElement.value.trim(); // 공백 제거
+                
+                // 정답 체크
+                if(isNext == 1){
+                    checkButton.addEventListener('click', () => {
+                        // 다음 페이지로
+                       alert("다음으로");
+                    });
+                }
+                else if (inputValue == 'apple' && isNext == 0) { 
+                    alert("정답입니다.");
+                    checkButton.querySelector('span').textContent = "다음으로";
+                    isNext = 1;
+                }
+                else {
+                    alert("정답이 아닙니다.");
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -5,16 +5,18 @@
 # ======= Import ========================
 import firebase_admin
 from firebase_admin import credentials, storage
+from random import shuffle
 import subprocess
 import sys
 from fastapi import FastAPI, Form, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import hashlib
 import os
 import json
 from datetime import date
+from starlette.middleware.sessions import SessionMiddleware
 # =======================================
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "firebase/ewordz-ea3e2-firebase-adminsdk-fqu91-07418cc09c.json"
@@ -43,6 +45,8 @@ bucket = storage.bucket()
 
 # ------- FastAPI Application Create ----
 app = FastAPI()
+
+app.add_middleware(SessionMiddleware, secret_key="your-secret-key")
 # ---------------------------------------
 
 
@@ -70,10 +74,18 @@ def Upload_To_Firebase(filePath):
     blob = bucket.blob(f'{filePath}')
     blob.upload_from_filename(filePath)
 
-def hashing(data):
+def Hashing(data):
     hashedData = hashlib.sha256()
     hashedData.update(f"{data}".encode("utf-8"))
     return hashedData.hexdigest()
+
+def Get_Stage():
+    stage_list = []
+    for i in range(1, 101):
+        stage_list.append(i)
+    
+    shuffle(stage_list)
+    return stage_list
 # =======================================
 
 # ======== Main =========================
@@ -98,9 +110,10 @@ async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...)
     userData = Load_Json(userDataFile)
     # 아이디가 존재하지 않는 경우 처리 추가
     try:
-        if userData[f"{id}"]["pw"] == hashing(pw):
+        if userData[f"{id}"]["pw"] == Hashing(pw):
             print("로그인 성공")
-            return templates.TemplateResponse("/main", {"request": request, "id" : id})
+            request.session['user_id'] = id
+            return RedirectResponse(url="/main")
         else:
             print("존재하지 않는 아이디 또는 비밀번호 틀림")
             return templates.TemplateResponse("login.html", {"request": request, "warning": "잘못된 비밀번호 또는 존재하지 않는 아이디입니다."})
@@ -113,13 +126,25 @@ async def aaa(request: Request):
     return templates.TemplateResponse("signupSuccess.html", {"request": request})
 
 @app.post("/signup_submit", response_class=HTMLResponse)
-async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...), pw2: str = Form(...)):   
-    pw = hashing(pw)
-    pw2 = hashing(pw2)
+async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...), pw2: str = Form(...), name: str = Form(...)):   
+    pw = Hashing(pw)
+    pw2 = Hashing(pw2)
     userData = Load_Json(userDataFile)
     if id not in userData:
         if pw == pw2:
-            userData[f"{id}"] = {"pw" : f"{pw}"}
+            stage = Get_Stage()
+            print(stage)
+            userData[f"{id}"] = {
+                "pw" : f"{pw}",
+                "name" : f"{name}",
+                "attendance": [0, 0, 0, 0, 0, 0, 0],
+                "sequence": 0,
+                "stage": stage,
+                "now_stage_idx": 0,
+                "point": 10,
+                "now_rate" : 10,
+                "best_rate" : 20
+            }
             Dump_Json(userDataFile, userData)
             Upload_To_Firebase(userDataFile)
             Download_Of_Firebase(userDataFile)
@@ -134,11 +159,68 @@ async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...)
         print(f"\n[ Server Message ]\n유저 한 명이 회원가입을 실패하였습니다.\n사유 - 이미 존재하는 아이디입니다. ({id})\n[ END ]\n")
         return templates.TemplateResponse("signup.html", {"request": request, "warning": "이미 존재하는 아이디입니다."})
 
-@app.get("/to_day_study", response_class=HTMLResponse)
-async def aaa(request: Request):
-    return templates.TemplateResponse("game.html", {"request": request})
+@app.post ("/main", response_class=HTMLResponse)
+async def read_signup(request: Request, id: str = Form(...)):
+    userData = Load_Json(userDataFile)
+    name = userData[f"{id}"]["name"]
+    point = userData[f"{id}"]["point"]
+    best_rate = userData[f"{id}"]["best_rate"]
+    now_rate = userData[f"{id}"]["now_rate"]
+    attendance_check = userData[f"{id}"]["attendance"]
+    sequence = userData[f"{id}"]["sequence"]
+    print(name)
+    return templates.TemplateResponse("main.html", {
+        "request": request,
+        "sequence": sequence,
+        "user_id": id,
+        "user_name": name,
+        "user_point" : point,
+        "user_best_rate": best_rate,
+        "user_now_rate" : now_rate,
+        "attendance": attendance_check
+        })
 
-@app.get("/main", response_class=HTMLResponse)
-async def read_signup(request: Request):
-    return templates.TemplateResponse("signup.html", {"request": request})
+@app.post ("/attendance", response_class=HTMLResponse)
+async def attendance(request: Request, id: str = Form(...)):
+    userData = Load_Json(userDataFile)
+    name = userData[f"{id}"]["name"]
+    point = userData[f"{id}"]["point"]
+    best_rate = userData[f"{id}"]["best_rate"]
+    now_rate = userData[f"{id}"]["now_rate"]
+    attendance_check = userData[f"{id}"]["attendance"]
+    print(name)
+    return templates.TemplateResponse("main.html", {
+        "request": request,
+        "user_id": id,
+        "user_name": name,
+        "user_point" : point,
+        "user_best_rate": best_rate,
+        "user_now_rate" : now_rate,
+        "attendance": attendance_check
+        })
+
+@app.get("/to_day_study", response_class=HTMLResponse)
+async def to_day_study(request: Request):
+    user_id = request.session.get('user_id')
+    userData = Load_Json(userDataFile)
+    now_stage_idx = userData[user_id]["now_stage_idx"]
+    stage_number = userData[user_id]["stage"][now_stage_idx]
+    print("!")
+    print(f"{user_id}")
+    print(f"{stage_number}")
+    # return templates.TemplateResponse(f"{stage_number}.html", {"request": request})
+    return templates.TemplateResponse(f"stage/stage_{stage_number}.html", {"request": request})
+
+@app.get("/next", response_class=HTMLResponse)
+async def next(request: Request):
+    user_id = request.session.get('user_id')
+    userData = Load_Json(userDataFile)
+    now_stage_idx = userData[user_id]["now_stage_idx"] + 1
+    stage_number = userData[user_id]["stage"][now_stage_idx]
+    # return templates.TemplateResponse(f"{stage_number}.html", {"request": request})
+    return templates.TemplateResponse(f"stage/stage_{stage_number}.html", {"request": request})
+
+@app.get("/shops", response_class=HTMLResponse)
+async def shops(request: Request):
+    return templates.TemplateResponse("shops.html", {"request": request})
 # =======================================

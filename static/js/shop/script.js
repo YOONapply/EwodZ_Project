@@ -1,42 +1,81 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const spring = document.getElementById('spring-background');
-    const springBackgroundInfo = document.getElementById('spring-background-info');
-    const wrap = document.querySelector('.wrap');
+    const infoBox = document.createElement('div');
+    infoBox.className = 'info-box';
+    document.body.appendChild(infoBox);
 
-    spring.addEventListener('click', () => {
-        // 새로운 div 생성
-        const newDiv = document.createElement('div'); 
-        newDiv.className = 'spring-background-showbox';
+    function showInfo(contentHtml) {
+        infoBox.innerHTML = contentHtml;
+        infoBox.style.display = 'flex';
+    }
 
-        // 내용물 추가 (이미지 포함, 구매 버튼 추가)
-        newDiv.innerHTML = `
-            <div class="spring-background-content">
-                <button id="close-btn">X</button>
-                <p class="price">1000 Point</p>
-                <img src="../static/imgs/background_1.png" alt="봄 배경 이미지">
-                <h2>봄 배경 정보</h2>
-                <p>이 배경은 봄의 따뜻한 감성을 표현한 배경입니다.</p>
+    function hideInfo() {
+        infoBox.style.display = 'none';
+    }
+
+    function createInfoContent(id, price, imgSrc, title, description) {
+        return `
+            <div class="info-content">
+                <button class="close-btn">X</button>
+                <p class="price">${price} Point</p>
+                <img src="${imgSrc}" alt="${title}">
+                <h2>${title}</h2>
+                <p>${description}</p>
                 <button class="purchase-btn">구매하기</button>
             </div>
         `;
+    }
 
-        // wrap의 overflow 숨기기
-        wrap.classList.add('overflow-hidden');
+    // 배경들
+    const backgrounds = [
+        { id: 'spring-background', price: '1000', imgSrc: '../static/imgs/background_1.png', title: '봄 배경', description: '이 배경은 봄의 따뜻한 감성을 표현한 배경입니다.' },
+        // 추가 배경 데이터 삽입
+    ];
 
-        // 새로운 div 추가
-        springBackgroundInfo.appendChild(newDiv);
-
-        // 닫기 버튼 기능 추가
-        const closeBtn = document.getElementById('close-btn');
-        closeBtn.addEventListener('click', () => {
-            springBackgroundInfo.removeChild(newDiv);
-            wrap.classList.remove('overflow-hidden'); // wrap의 overflow 복원
+    backgrounds.forEach(bg => {
+        const element = document.getElementById(bg.id);
+        element.addEventListener('click', () => {
+            showInfo(createInfoContent(bg.id, bg.price, bg.imgSrc, bg.title, bg.description));
         });
+    });
 
-        // 구매하기 버튼 이벤트 추가
-        const purchaseBtn = document.querySelector('.purchase-btn');
-        purchaseBtn.addEventListener('click', () => {
-            alert('봄 배경이 구매되었습니다!');
+    // 캐릭터들
+    const characters = [
+        { id: 'roi-character', price: '1000', imgSrc: '../static/imgs/roi.png', title: '로이', description: '캐릭터 설명 뭐라하지?' },
+        { id: 'dudu-character', price: '1200', imgSrc: '../static/imgs/dudu.png', title: '두두', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'reona-character', price: '1200', imgSrc: '../static/imgs/reona.png', title: '레오나', description: '캐릭터 설명 뭐라하지?' },
+        { id: 'jeombo-character', price: '1200', imgSrc: '../static/imgs/jeombo.png', title: '점보', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'runa-character', price: '1200', imgSrc: '../static/imgs/runa.png', title: '루나', description: '캐릭터 설명 뭐라하지?' },
+        { id: 'somi-character', price: '1200', imgSrc: '../static/imgs/somi.png', title: '솜이', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'juno-character', price: '1200', imgSrc: '../static/imgs/juno.png', title: '주노', description: '캐릭터 설명 뭐라하지?' },
+        { id: 'jjini-character', price: '1200', imgSrc: '../static/imgs/jjini.png', title: '찌니', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'moka-character', price: '1200', imgSrc: '../static/imgs/moka.png', title: '모카', description: '캐릭터 설명 뭐라하지?' },
+        { id: 'wingwing-character', price: '1200', imgSrc: '../static/imgs/wingwing.png', title: '윙윙', description: '지후야 이거 보면 기획 짜와라' },
+    ];
+
+    characters.forEach(character => {
+        const element = document.getElementById(character.id);
+        element.addEventListener('click', () => {
+            showInfo(createInfoContent(character.id, character.price, character.imgSrc, character.title, character.description));
         });
+    });
+
+    // 닫기 버튼 이벤트 리스너 추가
+    infoBox.addEventListener('click', (event) => {
+        if (event.target.classList.contains('close-btn')) {
+            hideInfo();
+        }
+    });
+
+    // 구매하기 버튼 이벤트 리스너 추가
+    infoBox.addEventListener('click', (event) => {
+        if (event.target.classList.contains('purchase-btn')) {
+            alert('구매가 완료되었습니다!');
+            hideInfo();
+        }
+    });
+
+    // 돌아가기 버튼 이벤트 리스너
+    document.getElementById('back-btn').addEventListener('click', () => {
+        history.back(); // 돌아가기 URL 설정
     });
 });

@@ -7,15 +7,13 @@
     <link rel="stylesheet" href="../static/css/main/style.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Profile Section -->
+    <div class="container" data-attendance='{{ attendance | tojson | safe }}'>
         <header>
             <div class="profile">
                 <div class="avatar">
                     <img src="../static/imgs/character_1.png" alt="Avatar" />
-                    <span class="progress">0/10</span>
                 </div>
-                <p class="nick">닉네임</p>
+                <p class="nick">{{user_name}}</p>
             </div>
 
             <div class="info">
@@ -23,23 +21,15 @@
                 <section>
                     <h3>현재 정답률: 0%</h3>
                     <h3>최고 정답률: 0%</h3>
-                <section>
-
+                </section>
                 <p class="reset">매주 월요일 초기화</p>
             </div>
 
             <div class="goals">
-                <h2>하루목표</h2>
-                <div class="goal-buttons-top">
-                    <button>10개</button>
-                    <button class="active">20개</button>
-                    <button>30개</button>
-                </div>
-                <div class="goal-buttons-bottom">
-                    <button>40개</button>
-                    <button>자유롭게</button>
-                </div>
-                <p class="now-goal">현재 목표: 20개</p>
+                <h2>일일 목표</h2>
+                <h3>문제 풀기</h3>
+                <h4>0/10</h4>
+                <button id="attendance_check_btn">출석 체크</button>
             </div>
         </header>
 
@@ -47,7 +37,7 @@
             <div class="menu">
                 <ul>
                     <li id="toDayStudy">⭐ 오늘의 학습</li>
-                    <li>🛒 상점</li>
+                    <li id="shops">🛒 상점</li>
                     <li>📑 컬렉션</li>
                 </ul>
             </div>
@@ -63,15 +53,44 @@
                     <span>토</span>
                     <span>일</span>
                 </div>
-                <p class="continuous">13일 연속 출석중</p>
+                <p class="continuous">{{sequence}}일 연속 출석중</p>
             </div>
-        </div>
-    </footer>
+        </footer>
+
     <script>
-        document.getElementById('toDayStudy').onclick = function() {
-            window.location.href = '/to_day_study';
-        };
+        document.addEventListener('DOMContentLoaded', () => {      
+                const container = document.querySelector('.container');
+                const attendanceCheck = JSON.parse(container.getAttribute('data-attendance'));
+
+                const days = document.querySelectorAll('.days span');
+
+                attendanceCheck.forEach((status, index) => {
+                    if (status === 1) {
+                        days[index].style.backgroundColor = 'green';
+                    } else {
+                        days[index].style.backgroundColor = 'gray'; 
+                    }
+                });
+
+                const attendanceCheckButton = document.getElementById('attendance_check_btn');
+                if (attendanceCheckButton) {
+                    attendanceCheckButton.onclick = function() {
+                        alert("일일 목표를 모두 완수해주세요.");
+                    };
+                }
+
+                document.getElementById('shops').onclick = function() {
+                    window.location.href = '/shops';
+                }
+
+                document.getElementById('toDayStudy').onclick = function() {
+                    window.location.href = '/to_day_study';
+                };
+            }
+        );
+
+        
     </script>
-</body>
+
 </body>
 </html>
