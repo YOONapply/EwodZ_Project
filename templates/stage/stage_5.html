@@ -37,7 +37,7 @@
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            width: 430px;
+            width: 450px; /*전체 크기*/
             text-align: center;
             position: relative;
         }
@@ -69,7 +69,7 @@
             padding: 8px 12px;
             margin-left: 10px;
             margin-right: 10px;
-            width: 40%; 
+            width: 25%; /*정답 박스*/
             border: none;
             border-radius: 8px;
             outline: none;
@@ -125,7 +125,7 @@
             width: 50px;
             height: 50px;
             vertical-align: middle;
-            margin-bottom: 5px; /* 아이콘과 텍스트 간의 간격 추가 */
+            margin-bottom: 5px;
         }
 
         .icon-button span {
@@ -143,7 +143,7 @@
             align-items: center;
             justify-content: center;
             padding: 10px;
-            font-size: 30px; /* 글씨 크기 설정 */
+            font-size: 30px; 
         }
 
         .hidden {
@@ -161,9 +161,9 @@
 </head>
 <body>
     <div class="container">
-        <div class="question">새 디자인이 매우 매력적이다.</div>
+        <div class="question">너는 분명히 도움이 필요하다.</div> <!--문제 자리-->
         <div class="answer-box">
-            The new design is very <input id="input" type="text" placeholder="Answer here" />.
+            You <input id="input" type="text" placeholder="Answer here" /> need help.
         </div>
         <div class="button-row">
             <button id="hint" class="pa icon-button">
@@ -192,7 +192,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const answer = "appealing"; // 정답 자리
+            const answer = "definitely"; // 정답 자리
             const answer_len = answer.length;
             const checkBtn = document.getElementById("check");
             const infoBtn = document.getElementById("info");

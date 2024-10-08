@@ -1,7 +1,7 @@
 html, body {
     height: 100%;
     margin: 0;
-    background-color: #F25A38;
+    background-color: #f8d6ce;
 }
 
 #mainWindow {
@@ -10,10 +10,6 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.main_btn:hover {
-    background-color: deepskyblue; /* 마우스를 올렸을 때 배경색 */
 }
 
 #logoImg {

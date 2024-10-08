@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클리어 화면</title>
+    <link rel="stylesheet" href="../static/clear/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">Reward</div>
+        <div class="content">
+            <h1>{{point}} Point</h1>
+            <p>[ 오답 {{wrong_cnt}}회 ]<br></p>
+            <p>[ 힌트 {{hint_cnt}}회 ]<br></p>
+            <p><red>[ 총합 ] <br>{{point - 50}}</red></p>
+        </div>
+        <div class="footer">
+            <button id="main-btn" class="main-btn">메인으로</button>
+            <button id="retry-btn" class="retry-btn">다음 문제</button>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById('main-btn').onclick = function() {
+        window.location.href = '/main';
+    };
+
+    document.getElementById('retry-btn').onclick = function() {
+        window.location.href = '/to_day_study';
+    };
+</script>
+</html>

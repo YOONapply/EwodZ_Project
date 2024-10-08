@@ -5,30 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Layout Example</title>
     <link rel="stylesheet" href="../static/css/main/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container" data-attendance='{{ attendance | tojson | safe }}'>
         <header>
             <div class="profile">
                 <div class="avatar">
-                    <img src="../static/imgs/character_1.png" alt="Avatar" />
+                    <img src="../static/imgs/ruby.png" alt="Avatar" />
                 </div>
-                <p class="nick">{{user_name}}</p>
+                <p class="nick">{{user_name}} </p>
             </div>
 
             <div class="info">
                 <h2>내 정보</h2>
                 <section>
-                    <h3>현재 정답률: 0%</h3>
-                    <h3>최고 정답률: 0%</h3>
+                    <h3>보유 포인트: {{user_point}}P</h3>
+                    <h3>현재 정답률: {{user_now_rate}}%</h3>
+                    <h3>최고 정답률: {{user_best_rate}}%</h3>
                 </section>
-                <p class="reset">매주 월요일 초기화</p>
             </div>
 
             <div class="goals">
                 <h2>일일 목표</h2>
                 <h3>문제 풀기</h3>
-                <h4>0/10</h4>
+                <h4>{{d_study_count}}/10</h4>
+                <div class="hidden"><input id="d_study_count" value="{{d_study_count}}"></div>
                 <button id="attendance_check_btn">출석 체크</button>
             </div>
         </header>
@@ -37,59 +41,88 @@
             <div class="menu">
                 <ul>
                     <li id="toDayStudy">⭐ 오늘의 학습</li>
-                    <li id="shops">🛒 상점</li>
-                    <li>📑 컬렉션</li>
+                    <li id="shops">📑 컬렉션</li>
+                    
                 </ul>
             </div>
 
             <div class="attendance">
                 <h2>출석체크</h2>
                 <div class="days">
+                    <span>일</span>
                     <span>월</span>
                     <span>화</span>
                     <span>수</span>
                     <span>목</span>
                     <span>금</span>
                     <span>토</span>
-                    <span>일</span>
                 </div>
-                <p class="continuous">{{sequence}}일 연속 출석중</p>
+                <p class="continuous">누적 출석일: {{sequence}}</p>
             </div>
         </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {      
-                const container = document.querySelector('.container');
-                const attendanceCheck = JSON.parse(container.getAttribute('data-attendance'));
+            const container = document.querySelector('.container');
+            const attendanceCheck = JSON.parse(container.getAttribute('data-attendance'));
+            const days = document.querySelectorAll('.days span');
 
-                const days = document.querySelectorAll('.days span');
+            attendanceCheck.forEach((status, index) => {
+                if (status === 1) {
+                    days[index].style.backgroundColor = 'green';
+                } else {
+                    days[index].style.backgroundColor = 'gray'; 
+                }
+            });
 
-                attendanceCheck.forEach((status, index) => {
-                    if (status === 1) {
-                        days[index].style.backgroundColor = 'green';
+            const attendanceCheckButton = document.getElementById('attendance_check_btn');
+            if (attendanceCheckButton) {
+                attendanceCheckButton.onclick = function() {
+                    const d_study_count = document.getElementById('d_study_count').value;
+                    const day = new Date().getDay();  
+
+                    if (d_study_count == 10) {
+                        fetch('/attendance', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams({
+                                'id': '{{user_id}}',  
+                                'day': day 
+                            })
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                alert("출석 체크 완료.");
+                                window.location.href = '/main';
+                            } else {
+                                alert("출석 체크 실패: 이미 출석 체크를 하셨습니다.");
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
                     } else {
-                        days[index].style.backgroundColor = 'gray'; 
-                    }
-                });
-
-                const attendanceCheckButton = document.getElementById('attendance_check_btn');
-                if (attendanceCheckButton) {
-                    attendanceCheckButton.onclick = function() {
                         alert("일일 목표를 모두 완수해주세요.");
-                    };
-                }
-
-                document.getElementById('shops').onclick = function() {
-                    window.location.href = '/shops';
-                }
-
-                document.getElementById('toDayStudy').onclick = function() {
-                    window.location.href = '/to_day_study';
+                    }
                 };
             }
-        );
 
-        
+            document.getElementById('shops').onclick = function() {
+                window.location.href = '/collection';
+            };
+
+            document.getElementById('toDayStudy').onclick = function() {
+                window.location.href = '/to_day_study';
+            };
+
+            document.getElementById('collection').onclick = function() {
+                window.location.href = '/collection';
+            };
+        });
+
+
     </script>
 
 </body>

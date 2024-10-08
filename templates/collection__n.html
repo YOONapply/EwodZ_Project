@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/collection/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: "Jua", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .wrap {
+            width: 1000px;
+            height: 80vh;
+            border: solid;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            height: 40%;
+            width: 100%;
+            border-bottom: solid 2px;
+        }
+
+        footer {
+            background-color: rgb(216, 202, 184);
+            height: 60%;
+            width: 100%;
+            border-bottom: solid;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        footer .top {
+            display: flex;
+            align-items: center;
+            background-color: rgb(228, 166, 90);
+            height: 20%;
+            width: 100%;
+        }
+
+        footer .top .checkbox {
+            display: flex;
+            margin: 0 auto;
+            flex-direction: row;
+            gap: 100px;
+        }
+
+        footer .top .checkbox button {
+            border: solid 1px;
+            border-radius: 5px;
+            width: 100px;
+            height: 30px;
+        }
+
+        footer .bottom {
+            border-radius: 20px;
+            background-color: rgb(216, 202, 184);
+            height: 80%;
+            width: 100%;
+        }
+
+        .back-button-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .back-button {
+            border: solid 1px;
+            border-radius: 5px;
+            padding: 5px 10px;
+            
+            color: black;
+            border: solid 1px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="back-button-container">
+        <button id="backButton" class="back-button">뒤로가기</button>
+    </div>
+    <div class="wrap">
+        <header>
+        </header>
+        
+        <footer>
+            <div class="top">
+                <div class="checkbox">
+                    <button id="btn1">배경</button>
+                    <button id="btn2">캐릭터</button>
+                    <button id="btn3">미보유</button>
+                </div>
+            </div>
+            <div class="bottom">
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("backButton").addEventListener("click", function() {
+            window.history.back();
+        });
+
+        let nowBtn = 1;
+
+        switch(nowBtn) {
+            case 1:
+                break;
+            case 2:
+                console.log("addddd");
+                break;
+            case 3:
+                console.log("addddd");
+                break;        
+        }
+    </script>
+</body>
+</html>

@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const userPoint = document.getElementById("user_point");
+    
     const infoBox = document.createElement('div');
     infoBox.className = 'info-box';
     document.body.appendChild(infoBox);
@@ -16,19 +18,25 @@ document.addEventListener('DOMContentLoaded', () => {
         return `
             <div class="info-content">
                 <button class="close-btn">X</button>
-                <p class="price">${price} Point</p>
+                <p class="price">${price}P 이상 보유 시 사용 가능합니다.</p>
                 <img src="${imgSrc}" alt="${title}">
                 <h2>${title}</h2>
                 <p>${description}</p>
-                <button class="purchase-btn">구매하기</button>
+                <button class="purchase-btn" data-price="${price}">사용하기</button>
             </div>
         `;
     }
 
     // 배경들
     const backgrounds = [
-        { id: 'spring-background', price: '1000', imgSrc: '../static/imgs/background_1.png', title: '봄 배경', description: '이 배경은 봄의 따뜻한 감성을 표현한 배경입니다.' },
-        // 추가 배경 데이터 삽입
+        { id: 'spring-background', price: '100', imgSrc: '../static/imgs/spring.png', title: '봄 배경', description: '이 배경은 봄의 따뜻한 감성을 표현한 배경입니다.' },
+        { id: 'summer-background', price: '100', imgSrc: '../static/imgs/summer.png', title: '여름 배경', description: '시원한 여름의 배경입니다.' },
+        { id: 'autumn-background', price: '100', imgSrc: '../static/imgs/autumn.png', title: '가을 배경', description: '가을의 따뜻한 색감을 담은 배경입니다.' },
+        { id: 'winter-background', price: '100', imgSrc: '../static/imgs/winter.png', title: '겨울 배경', description: '차가운 겨울의 배경입니다.' },
+        { id: 'blossoms-background', price: '200', imgSrc: '../static/imgs/blossoms.png', title: '꽃 배경', description: '화사한 꽃의 배경입니다.' },
+        { id: 'gradient-background', price: '300', imgSrc: '../static/imgs/gradient.png', title: '그라데이션 배경', description: '부드러운 그라데이션 배경입니다.' },
+        { id: 'wave-background', price: '4000', imgSrc: '../static/imgs/wave.png', title: '파도 배경', description: '동적인 파도 모양의 배경입니다.' },
+        
     ];
 
     backgrounds.forEach(bg => {
@@ -40,16 +48,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 캐릭터들
     const characters = [
-        { id: 'roi-character', price: '1000', imgSrc: '../static/imgs/roi.png', title: '로이', description: '캐릭터 설명 뭐라하지?' },
-        { id: 'dudu-character', price: '1200', imgSrc: '../static/imgs/dudu.png', title: '두두', description: '지후야 이거 보면 기획 짜와라' },
-        { id: 'reona-character', price: '1200', imgSrc: '../static/imgs/reona.png', title: '레오나', description: '캐릭터 설명 뭐라하지?' },
-        { id: 'jeombo-character', price: '1200', imgSrc: '../static/imgs/jeombo.png', title: '점보', description: '지후야 이거 보면 기획 짜와라' },
-        { id: 'runa-character', price: '1200', imgSrc: '../static/imgs/runa.png', title: '루나', description: '캐릭터 설명 뭐라하지?' },
-        { id: 'somi-character', price: '1200', imgSrc: '../static/imgs/somi.png', title: '솜이', description: '지후야 이거 보면 기획 짜와라' },
-        { id: 'juno-character', price: '1200', imgSrc: '../static/imgs/juno.png', title: '주노', description: '캐릭터 설명 뭐라하지?' },
-        { id: 'jjini-character', price: '1200', imgSrc: '../static/imgs/jjini.png', title: '찌니', description: '지후야 이거 보면 기획 짜와라' },
-        { id: 'moka-character', price: '1200', imgSrc: '../static/imgs/moka.png', title: '모카', description: '캐릭터 설명 뭐라하지?' },
-        { id: 'wingwing-character', price: '1200', imgSrc: '../static/imgs/wingwing.png', title: '윙윙', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'roi-character', price: '10', imgSrc: '../static/imgs/roi.png', title: '로이', description: '작고 귀여운 외모로 사랑받는 작은 친구입니다.' },
+        { id: 'dudu-character', price: '50', imgSrc: '../static/imgs/dudu.png', title: '두두', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'jjini-character', price: '100', imgSrc: '../static/imgs/jjini.png', title: '찌니', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'wingwing-character', price: '100', imgSrc: '../static/imgs/wingwing.png', title: '윙윙', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'jeombo-character', price: '200', imgSrc: '../static/imgs/jeombo.png', title: '점보', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'juno-character', price: '200', imgSrc: '../static/imgs/juno.png', title: '주노', description: '캐릭터 설명 뭐라하지?' },
+        { id: 'moka-character', price: '300', imgSrc: '../static/imgs/moka.png', title: '모카', description: '캐릭터 설명 뭐라하지?' },
+        { id: 'somi-character', price: '1000', imgSrc: '../static/imgs/somi.png', title: '솜이', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'runa-character', price: '2000', imgSrc: '../static/imgs/runa.png', title: '루나', description: '캐릭터 설명 뭐라하지?' },
+        { id: 'reona-character', price: '3000', imgSrc: '../static/imgs/reona.png', title: '레오나', description: '캐릭터 설명 뭐라하지?' }
     ];
 
     characters.forEach(character => {
@@ -69,7 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // 구매하기 버튼 이벤트 리스너 추가
     infoBox.addEventListener('click', (event) => {
         if (event.target.classList.contains('purchase-btn')) {
-            alert('구매가 완료되었습니다!');
+            const price = parseInt(event.target.getAttribute('data-price'));
+            let user_point = parseInt(userPoint.value);
+            
+            if (user_point >= price) {
+                // 구매 가능
+                alert(`적용되었습니다!`);
+            } else {
+                alert(`포인트가 부족합니다.`);
+            }
             hideInfo();
         }
     });

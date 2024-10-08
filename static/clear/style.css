@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #3c4c57;
+    border-radius: 20px;
+    width: 600px; /* 기존 300px에서 확대 */
+    padding: 40px; /* 기존 20px에서 확대 */
+    text-align: center;
+    color: #ffffff;
+}
+
+.header {
+    font-size: 48px; /* 기존 24px에서 확대 */
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.content {
+    background-color: #e6a03c;
+    border-radius: 15px;
+    padding: 40px; /* 기존 20px에서 확대 */
+    margin-bottom: 40px;
+}
+
+.content p {
+    margin-bottom: 20px;
+    font-size: 36px; /* 기존 18px에서 확대 */
+}
+
+.content h1 {
+    font-size: 72px; /* 기존 36px에서 확대 */
+    margin: 40px 0;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    background-color: #ffffff;
+    border: none;
+    padding: 20px; /* 기존 10px에서 확대 */
+    border-radius: 10px;
+    font-size: 32px; /* 기존 16px에서 확대 */
+    cursor: pointer;
+}
+
+.main-btn {
+    background-color: #1c3449;
+    color: #ffffff;
+}
+
+.retry-btn {
+    background-color: #f9d949;
+    color: #000000;
+}
+
+.red{
+    color: red;
+}
+
+red{
+    color:red;
+}
