@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EwordZ - 문제 풀이</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: "Jua", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        #hidden-btn {
+            margin-top: 10px;
+            background-color: rgba(156, 12, 12, 0.532);
+        }
+ 
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #EEb3a3;
+            margin: 0;
+            transform: scale(1.5);  
+            transform-origin: center; 
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: #F3553C;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 600px; /*전체 크기*/
+            text-align: center;
+            position: relative;
+        }
+
+        .question {
+            background-color: #F2CDC4;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 20px;
+            border-radius: 10px;
+            color: #444;
+            font-weight: 500;
+        }
+
+        .answer-box {
+            background-color: #FFB53C;
+            color: rgb(0, 0, 0);
+            padding: 20px;
+            margin-bottom: 25px;
+            font-size: 16px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .answer-box input {
+            font-size: 16px;
+            padding: 8px 12px;
+            margin-left: 10px;
+            margin-right: 10px;
+            width: 25%; /*정답 박스*/
+            border: none;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: center;
+        }
+
+        .button-row button {
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            padding: 10px 20px;
+            color: white;
+            margin: 0 15px; /* 각 버튼의 좌우 간격 설정 */
+            flex: 1; /* 버튼이 동일한 비율로 크기를 차지하게 함 */
+        }
+
+        .button-row button#check {
+            width: 200px; /* 원하는 가로 크기로 설정 */
+            flex: none; /* flex 설정을 해제하여 고정 너비 적용 */
+        }
+
+
+
+        .check .hidden {
+            font-size: 30px;
+        }
+
+        .pa {
+            background-color: #642A02;
+        }
+
+        .impa {
+            background-color: #642A02;
+        }
+
+        .icon-button {
+            background-color: transparent;  
+            color: #642A02; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            margin: 0 10px; /* 아이콘 버튼 간의 좌우 간격 추가 */
+        }
+
+        .icon-button img {
+            width: 50px;
+            height: 50px;
+            vertical-align: middle;
+            margin-bottom: 5px;
+        }
+
+        .icon-button span {
+            font-size: 12px;
+            margin-top: 5px;
+            color: black;
+        }
+
+        .confirm-button {
+            background-color: #642A02;
+            color: white;
+            width: 200px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            font-size: 30px; 
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question">비만은 당뇨병과 심장병을 포함한 여러 건강 문제를 초래할 수 있다.</div> <!--문제 자리-->
+        <div class="answer-box">
+            <input id="input" type="text" placeholder="Answer here" /> can lead to several health problems, including diabetes and heart disease.
+        </div>
+        <div class="button-row">
+            <button id="hint" class="pa icon-button">
+                <img src="../static/imgs/hint-icon.png" alt="힌트 아이콘">
+                <span>Hint</span>
+            </button>
+
+            <button id="check" class="confirm-button">
+                <span class="check">Check</span>
+            </button>                
+
+            <form action="/clear" method="post" id="hidden-form">
+                <input type="hidden" name="wrong_cnt" id="wrong_cnt" value="0"/>
+                <input type="hidden" name="hint_cnt" id="hint_cnt" value="0"/>
+                <button id="hidden-btn" class="confirm-button hidden">
+                    <span class="check">Next</span>
+                </button>                
+            </form>
+
+            <button id="info" class="impa icon-button">
+                <img src="../static/imgs/info-icon.png" alt="단어 정보 아이콘">
+                <span>Info</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const answer = "Obesity"; // 정답 자리
+            const answer_len = answer.length;
+            const checkBtn = document.getElementById("check");
+            const infoBtn = document.getElementById("info");
+            const hintBtn = document.getElementById("hint");
+            const input = document.getElementById("input");
+
+            const wrong_cntV = document.getElementById("wrong_cnt");
+            const hint_cntV = document.getElementById("hint_cnt");
+            const hiddenForm = document.getElementById("hidden-form");
+            const hiddenBtn = document.getElementById("hidden-btn");
+
+            let isNext = 0;
+            let hintCnt = 0;
+            let wrongCnt = 0;
+
+            hiddenBtn.style.display = 'none';  
+
+            checkBtn.addEventListener('click', () => {
+                var inputValue = input.value.trim(); 
+                
+                if (isNext === 1) {
+                    wrong_cntV.value = wrongCnt;
+                    hint_cntV.value = hintCnt;
+                    hiddenForm.submit(); 
+                } else if (inputValue === answer) {
+                    alert("정답입니다.");
+                    alert("힌트 사용: " + hintCnt + "회\n오답: " + wrongCnt + "회");
+                    checkBtn.style.display = 'none'; 
+                    hiddenBtn.style.display = 'block'; 
+                    isNext = 1;
+                } else {
+                    wrongCnt += 1;
+                    alert("정답이 아닙니다.\n오답: " + wrongCnt + "회");
+                }
+            });
+
+            hiddenBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                wrong_cntV.value = wrongCnt;
+                hint_cntV.value = hintCnt;
+                hiddenForm.submit(); 
+            });
+
+            hintBtn.addEventListener('click', () => {    
+                if (hintCnt === answer_len) {
+                    alert("정답이 이미 공개되었습니다.\n정답: " + answer);
+                } else {
+                    let answer_hint = "";
+                    for (let i = 0; i <= hintCnt; i++) {
+                        answer_hint += answer[i];
+                    }
+                    input.value = answer_hint;
+                    hintCnt += 1;
+                    alert("힌트를 사용하였습니다.\n단어 길이: "+ answer_len +"\n사용 횟수: " + hintCnt + "회\n");
+                }
+            });
+
+            infoBtn.addEventListener('click', () => {            
+                alert("힌트 사용: " + hintCnt + "회\n오답: " + wrongCnt + "회");
+            });
+        });
+    </script>
+</body>
+</html>
