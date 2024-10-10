@@ -2,3 +2,4 @@
 개발 언어 - Python, 프레임워크 - Flask
 사용 사이트 - Firebase, CloudType
 
+개발 종료 - 24.10.10
