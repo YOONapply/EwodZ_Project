@@ -58,15 +58,16 @@ header{
 
 .avatar {
     position: relative;
-    margin-right: 20px;
-    
+    width: 300px; /* 부모 요소의 너비와 일치 */
+    height: 300px; /* 부모 요소의 높이와 일치 */
+    overflow: hidden; /* 이미지가 부모 요소를 넘지 않도록 함 */
 }
 
 .avatar img {
-    width: 300px;
-    height: 300px;
+    width: 100%; /* 부모 요소의 너비에 맞게 */
+    height: 100%; /* 부모 요소의 높이에 맞게 */
+    object-fit: cover; /* 비율을 유지하면서 잘라냄 */
 }
-
 .progress {
     position: absolute;
     top: 5px;

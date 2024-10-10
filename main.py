@@ -138,6 +138,7 @@ async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...)
             userData[f"{id}"] = {
                 "pw" : f"{pw}",
                 "name" : f"{name}",
+                "character": "ruby",
                 "attendance": [0, 0, 0, 0, 0, 0, 0],
                 "sequence": 0,
                 "stage": stage,
@@ -164,6 +165,19 @@ async def submit_form(request: Request, id: str = Form(...), pw: str = Form(...)
         print(f"\n[ Server Message ]\n유저 한 명이 회원가입을 실패하였습니다.\n사유 - 이미 존재하는 아이디입니다. ({id})\n[ END ]\n")
         return templates.TemplateResponse("signup.html", {"request": request, "warning": "이미 존재하는 아이디입니다."})
 
+@app.post ("/character", response_class=HTMLResponse)
+async def character(request: Request, character: str=Form(...)):
+    id = request.session.get('user_id')
+    userData = Load_Json(userDataFile)
+    if character is not None:
+        userData[id]["character"] = character
+    else:
+        userData[id]["character"] = "ruby"  # 기본값 설정
+    Dump_Json(userDataFile, userData)
+    print(character)
+
+    return RedirectResponse(url="/main")
+
 @app.post ("/main", response_class=HTMLResponse)
 async def read_main(request: Request):
     id = request.session.get('user_id')
@@ -185,6 +199,7 @@ async def read_main(request: Request):
     total_study_count = userData[f"{id}"]["total_study_count"]
     total_try_count = userData[f"{id}"]["total_try_count"]
     total_wrong_count = userData[f"{id}"]["total_wrong_count"]
+    character = userData[f"{id}"]["character"]
     
     # 정답률 구하기
     if total_try_count != 0:
@@ -199,6 +214,7 @@ async def read_main(request: Request):
     return templates.TemplateResponse("main.html", {
         "request": request,
         "sequence": sequence,
+        "character": character,
         "user_id": id,
         "user_name": name,
         "user_point" : point,
@@ -232,6 +248,7 @@ async def read_main_get(request: Request):
     total_study_count = userData[f"{id}"]["total_study_count"]
     total_try_count = userData[f"{id}"]["total_try_count"]
     total_wrong_count = userData[f"{id}"]["total_wrong_count"]
+    character = userData[f"{id}"]["character"]
     
     # 정답률 구하기
     if total_try_count != 0:
@@ -248,6 +265,7 @@ async def read_main_get(request: Request):
         "sequence": sequence,
         "user_id": id,
         "user_name": name,
+        "character": character,
         "user_point" : point,
         "user_best_rate": best_rate,
         "user_now_rate" : now_rate,

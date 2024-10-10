@@ -20,7 +20,13 @@
         <input id="user_point" value="{{user_point}}" readonly>
     </div>
     <header>
-        <button id="back-btn">돌아가기</button>
+        <form action="/character" method="POST">
+            <div class="hidden">
+                <input type="text" id="character" name="character" value="ruby">
+            </div>
+            <button type="submit" id="back-btn">돌아가기</button>
+        </form>
+
         <div class="header-container">
             <div class="points-display">
                 <h1>보유 포인트</h1>

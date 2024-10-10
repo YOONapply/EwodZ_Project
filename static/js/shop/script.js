@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const userPoint = document.getElementById("user_point");
-    
+    const userCharacter = document.getElementById("character");
     const infoBox = document.createElement('div');
     infoBox.className = 'info-box';
     document.body.appendChild(infoBox);
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         infoBox.style.display = 'none';
     }
 
-    function createInfoContent(id, price, imgSrc, title, description) {
+    function createInfoContent(id, price, imgSrc, title, description, name) {
         return `
             <div class="info-content">
                 <button class="close-btn">X</button>
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${imgSrc}" alt="${title}">
                 <h2>${title}</h2>
                 <p>${description}</p>
-                <button class="purchase-btn" data-price="${price}">사용하기</button>
+                <button class="purchase-btn" data-price="${price}" data-name="${name}">사용하기</button>
             </div>
         `;
     }
@@ -36,34 +36,34 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'blossoms-background', price: '200', imgSrc: '../static/imgs/blossoms.png', title: '꽃 배경', description: '화사한 꽃의 배경입니다.' },
         { id: 'gradient-background', price: '300', imgSrc: '../static/imgs/gradient.png', title: '그라데이션 배경', description: '부드러운 그라데이션 배경입니다.' },
         { id: 'wave-background', price: '4000', imgSrc: '../static/imgs/wave.png', title: '파도 배경', description: '동적인 파도 모양의 배경입니다.' },
-        
     ];
 
     backgrounds.forEach(bg => {
         const element = document.getElementById(bg.id);
         element.addEventListener('click', () => {
-            showInfo(createInfoContent(bg.id, bg.price, bg.imgSrc, bg.title, bg.description));
+            showInfo(createInfoContent(bg.id, bg.price, bg.imgSrc, bg.title, bg.description, bg.title));
         });
     });
 
     // 캐릭터들
     const characters = [
-        { id: 'roi-character', price: '10', imgSrc: '../static/imgs/roi.png', title: '로이', description: '작고 귀여운 외모로 사랑받는 작은 친구입니다.' },
-        { id: 'dudu-character', price: '50', imgSrc: '../static/imgs/dudu.png', title: '두두', description: '지후야 이거 보면 기획 짜와라' },
-        { id: 'jjini-character', price: '100', imgSrc: '../static/imgs/jjini.png', title: '찌니', description: '지후야 이거 보면 기획 짜와라' },
-        { id: 'wingwing-character', price: '100', imgSrc: '../static/imgs/wingwing.png', title: '윙윙', description: '지후야 이거 보면 기획 짜와라' },
-        { id: 'jeombo-character', price: '200', imgSrc: '../static/imgs/jeombo.png', title: '점보', description: '지후야 이거 보면 기획 짜와라' },
-        { id: 'juno-character', price: '200', imgSrc: '../static/imgs/juno.png', title: '주노', description: '캐릭터 설명 뭐라하지?' },
-        { id: 'moka-character', price: '300', imgSrc: '../static/imgs/moka.png', title: '모카', description: '캐릭터 설명 뭐라하지?' },
-        { id: 'somi-character', price: '1000', imgSrc: '../static/imgs/somi.png', title: '솜이', description: '지후야 이거 보면 기획 짜와라' },
-        { id: 'runa-character', price: '2000', imgSrc: '../static/imgs/runa.png', title: '루나', description: '캐릭터 설명 뭐라하지?' },
-        { id: 'reona-character', price: '3000', imgSrc: '../static/imgs/reona.png', title: '레오나', description: '캐릭터 설명 뭐라하지?' }
+        { id: 'roi-character', price: '10', imgSrc: '../static/imgs/roi.png', name: 'roi', title: '로이', description: '작고 귀여운 외모로 사랑받는 작은 친구입니다.' },
+        { id: 'dudu-character', price: '50', imgSrc: '../static/imgs/dudu.png', name: 'dudu', title: '두두', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'jjini-character', price: '100', imgSrc: '../static/imgs/jjini.png', name: 'jjini', title: '찌니', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'wingwing-character', price: '100', imgSrc: '../static/imgs/wingwing.png', name: 'wingwing', title: '윙윙', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'jeombo-character', price: '200', imgSrc: '../static/imgs/jeombo.png', name: 'jeombo', title: '점보', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'juno-character', price: '200', imgSrc: '../static/imgs/juno.png', name: 'juno', title: '주노', description: '캐릭터 설명 뭐라하지?' },
+        { id: 'moka-character', price: '300', imgSrc: '../static/imgs/moka.png', name: 'moka', title: '모카', description: '캐릭터 설명 뭐라하지?' },
+        { id: 'somi-character', price: '1000', imgSrc: '../static/imgs/somi.png', name: 'somi', title: '솜이', description: '지후야 이거 보면 기획 짜와라' },
+        { id: 'runa-character', price: '2000', imgSrc: '../static/imgs/runa.png', name: 'runa', title: '루나', description: '캐릭터 설명 뭐라하지?' },
+        { id: 'reona-character', price: '3000', imgSrc: '../static/imgs/reona.png', name: 'reona', title: '레오나', description: '캐릭터 설명 뭐라하지?' }
     ];
+    
 
     characters.forEach(character => {
         const element = document.getElementById(character.id);
         element.addEventListener('click', () => {
-            showInfo(createInfoContent(character.id, character.price, character.imgSrc, character.title, character.description));
+            showInfo(createInfoContent(character.id, character.price, character.imgSrc, character.title, character.description, character.name));
         });
     });
 
@@ -78,11 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
     infoBox.addEventListener('click', (event) => {
         if (event.target.classList.contains('purchase-btn')) {
             const price = parseInt(event.target.getAttribute('data-price'));
+            const name = event.target.getAttribute('data-name'); // 수정된 부분
             let user_point = parseInt(userPoint.value);
             
             if (user_point >= price) {
-                // 구매 가능
-                alert(`적용되었습니다!`);
+                // userPoint.value = user_point - price; // 포인트 차감
+                userCharacter.value = name; // 선택된 캐릭터 저장
+                alert(`${name} 캐릭터가 적용되었습니다!`); // 적용된 캐릭터 이름 표시
             } else {
                 alert(`포인트가 부족합니다.`);
             }
@@ -91,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 돌아가기 버튼 이벤트 리스너
-    document.getElementById('back-btn').addEventListener('click', () => {
-        history.back(); // 돌아가기 URL 설정
-    });
+    // document.getElementById('back-btn').addEventListener('click', () => {
+    //     history.back(); // 돌아가기 URL 설정
+    // });
 });
